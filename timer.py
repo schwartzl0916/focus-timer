@@ -5,7 +5,7 @@ import time
 import sys
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 WORK_MINUTES = 25
 SHORT_BREAK = 5
@@ -42,10 +42,7 @@ def update_streak(stats):
     today = datetime.now().strftime("%Y-%m-%d")
     if stats["streak_date"] == today:
         pass
-    elif stats["streak_date"] == (datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-                                   .__class__.fromtimestamp(
-                                       datetime.now().timestamp() - 86400
-                                   ).strftime("%Y-%m-%d")):
+    elif stats["streak_date"] == (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"):
         stats["streak"] += 1
     else:
         stats["streak"] = 1
